@@ -1,6 +1,8 @@
 # jmh
 Playing around with jmh
 
+# Build and run
+git clone 
 # Related links:
 
 http://java-performance.info/jmh/
