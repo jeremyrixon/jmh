@@ -11,6 +11,10 @@ Try turning off JIT optimisations. For example:
 
     mvn clean install && java -XX:+UseSuperWord -jar target/benchmarks.jar
 
+Try logging asm:
+    
+    mvn clean install && java -XX:+UnlockDiagnosticVMOptions -XX:+PrintCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar > log.txt
+
 # This project was created using the following maven archetype:
 
     $ mvn archetype:generate \
