@@ -1,19 +1,29 @@
 # jmh
 Playing around with jmh
 
-# Build and run
+# Build
 
     git clone https://github.com/jeremyrixon/jmh.git
     cd jmh/test
-    mvn clean install && java -jar target/benchmarks.jar
+    mvn clean package
 
-Try turning off JIT optimisations. For example:
-
-    mvn clean install && java -XX:+UseSuperWord -jar target/benchmarks.jar
-
-Try logging asm:
+# Run
     
-    mvn clean install && java -XX:+UnlockDiagnosticVMOptions -XX:+PrintCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar > log.txt
+    java -jar target/benchmarks.jar 
+    
+Fewer iterations for the impatient:
+
+    java -jar target/benchmarks.jar -wi 5 -f 3 -i 10
+    
+Try turning off JIT optimisations. For example, turn **OFF** UseSuperWord:
+
+    java -XX:+UseSuperWord -jar target/benchmarks.jar
+
+Try logging asm (needs hsdis built for your arch).
+(See https://github.com/AdoptOpenJDK/jitwatch/wiki/Building-hsdis)
+    
+    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar
+
 
 # This project was created using the following maven archetype:
 
