@@ -1,34 +1,3 @@
-/*
- * Copyright (c) 2014, Oracle America, Inc.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- *  * Neither the name of Oracle nor the names of its contributors may be used
- *    to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.rixon;
 
 import java.util.Random;
@@ -46,27 +15,86 @@ import org.openjdk.jmh.annotations.State;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class MyBenchmark {
-	
-	final int N = 500;
+
+	final int N = 1000;
 	double[] a = new double[N];
 	double[] b = new double[N];
 	double[] results = new double[N];
-    
-    	@Setup
+	InlineTest it = new InlineTest();
+
+	@Setup
 	public void setup() {
 		Random r = new Random();
 		for (int i = 0; i < N; i++) {
 			a[i] = r.nextDouble();
 			b[i] = r.nextDouble();
 		}
+		it.setA(1);
+		it.setB(1);
+		it.setC(1);
 	}
-	
-    @Benchmark
-    public double[] testMethod() {
-    	for (int i = 0; i < N; i++) {
-    		results[i] = a[i] * b[i];
-    	}
-    	return results;
-    }
+
+	@Benchmark
+	public double test01Total() {
+		double result = 0.0;
+		for (int i = 0; i < N; i++) {
+			result += a[i];
+		}
+		return result;
+	}
+
+	@Benchmark
+	public double[] test02Add() {
+		for (int i = 0; i < N; i++) {
+			results[i] = a[i] * b[i];
+		}
+		return results;
+	}
+
+	@Benchmark
+	public double[] test03Multiply() {
+		
+		// Multiply
+		for (int i = 0; i < N; i++) {
+			results[i] = a[i] * b[i];
+		}
+		return results;
+	}
+
+	@Benchmark
+	public double test04DotProduct() {
+		
+		// Multiply and add
+		double result = 0.0;
+		for (int i = 0; i < N; i++) {
+			result += a[i] * b[i];
+		}
+		return result;
+	}
+
+	@Benchmark
+	public double test05DotProduct() {
+
+		// Multiply
+		for (int i = 0; i < N; i++) {
+			results[i] = a[i] * b[i];
+		}
+		
+		// Add
+		double result = 0.0;
+		for (int i = 0; i < N; i++) {
+			result += results[i];
+		}
+
+		return result;
+	}
+
+	@Benchmark
+	public double test06Fibonacci() {
+		it.setC(it.getA());
+		it.setA(it.getA() + it.getB());
+		it.setB(it.getC());
+		return it.getA();
+	}
 
 }
