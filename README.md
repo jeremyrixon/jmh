@@ -22,7 +22,7 @@ Try turning off JIT optimisations. For example, turn **OFF** UseSuperWord:
 Try logging asm (needs hsdis built for your arch).
 (See https://github.com/AdoptOpenJDK/jitwatch/wiki/Building-hsdis)
     
-    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 3 -i 5
+    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 3 -i 5 > noise.txt
 
 # JITWatch
 
@@ -34,7 +34,7 @@ JITWatch makes it easier.
 
 Because reasons, create a new log file for jitwatch using zero forks:
 
-    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 0 -i 5
+    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 0 -i 5 > noise.txt
 
 Hit the "Config" button to add source and class files for the benchmark project.
 Hit the "Open Log" button to read the log.
