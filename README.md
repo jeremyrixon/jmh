@@ -29,6 +29,7 @@ Try logging asm (needs hsdis built for your arch).
 JITWatch makes it easier.
 
     git clone https://github.com/AdoptOpenJDK/jitwatch.git
+    cd jitwatch
     mvn clean compile exec:java
 
 Because reasons, create a new log file for jitwatch using zero forks:
