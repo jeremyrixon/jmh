@@ -13,7 +13,7 @@ Playing around with jmh
     
 Fewer iterations for the impatient:
 
-    java -jar target/benchmarks.jar -wi 5 -f 3 -i 10
+    java -jar target/benchmarks.jar -wi 3 -f 3 -i 5
     
 Try turning off JIT optimisations. For example, turn **OFF** UseSuperWord:
 
@@ -25,6 +25,7 @@ Try logging asm (needs hsdis built for your arch).
     java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar
 
 
+Try 
 # This project was created using the following maven archetype:
 
     $ mvn archetype:generate \
