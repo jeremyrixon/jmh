@@ -24,9 +24,9 @@ Try logging asm (needs hsdis built for your arch).
     
     java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 3 -i 5
 
-# JitWatch
+# JITWatch
 
-JitWatch makes it easier.
+JITWatch makes it easier.
 
     git clone https://github.com/AdoptOpenJDK/jitwatch.git
     mvn clean compile exec:java
