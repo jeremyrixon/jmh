@@ -32,9 +32,9 @@ JITWatch makes it easier.
     cd jitwatch
     mvn clean compile exec:java
 
-Because reasons, create a new log file for jitwatch using zero forks:
+Create a new log file for JITWatch. JITWatch needs -XX:+TraceClassLoading and to get everything in the same log file, we'll set number of forks to zero (even though that pretty much invalidates the performance metrics):
 
-    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly  -jar target/benchmarks.jar -wi 3 -f 0 -i 5 > noise.txt
+    java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintAssembly -XX:+TraceClassLoading -jar target/benchmarks.jar -wi 3 -f 0 -i 5 > noise.txt
 
 Hit the "Config" button to add source and class files for the benchmark project.
 Hit the "Open Log" button to read the log.
