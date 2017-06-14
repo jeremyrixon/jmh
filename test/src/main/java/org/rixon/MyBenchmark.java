@@ -46,7 +46,7 @@ public class MyBenchmark {
 	@Benchmark
 	public double[] test02Add() {
 		for (int i = 0; i < N; i++) {
-			results[i] = a[i] * b[i];
+			results[i] = a[i] + b[i];
 		}
 		return results;
 	}
